@@ -1,0 +1,58 @@
+@font-face {
+    font-family: 'printable4uregular';
+    src: url('../../../font/PrintAble4URegularver100.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+#fader {
+    position: fixed;
+    background-color: black;
+    width: 100vw;
+    height: 100vh;
+    z-index: 3 !important;
+    opacity: 1;
+    transition: opacity 0.4s;
+    pointer-events: none;
+}
+
+video {
+    object-fit: cover;
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    filter: blur(5px);
+    opacity: 0.4;
+    transition: filter 0.5s ease;
+}
+
+body {
+    display: flex;
+    /*align-items: center;
+    justify-content: center;*/
+    margin: 0;
+    height: 100vh;
+    padding: 0;
+    overflow: hidden;
+    font-family: 'printable4uregular'
+}
+
+.screen {
+    background-color: white;
+    padding: 10px;
+    border: 2px;
+    border-color: gray;
+    border-radius: 10px;
+    width: 70vw;
+    height: 80vh;
+}
+
+#quoter{
+    transform: translateY(-100%);
+    opacity: 0;
+    transition: transform 1s,opacity 1s;
+    z-index: 1;
+}
