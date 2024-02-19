@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Tuangwit</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="mainstylesheet.css" />
+  </head>
+
+  <body>
+    <div class="container-fluid outliner">
+      <div
+        id="popupimage"
+        class="container-fluid text-center ms-0"
+        style="
+          background-color: rgba(0, 0, 0, 0.699);
+          z-index: -3;
+          opacity: 0;
+          position: fixed;
+          transition: transform 1s, opacity 0.75s;
+        "
+      >
+        <img
+          src="../thumbnail/soon.png"
+          class="img-thumbnail"
+          id="popupimgimg"
+          onclick="hideimg()"
+          style="width: 90%"
+        />
+      </div>
+
+      <div class="container-fluid innerside text-center">
+        <div class="navi container" style="padding: 0px">
+          <div class="row">
+            <div
+              class="col-4 col-sm darkenhold mt-3"
+              id="buta"
+              onclick="aclicked()"
+            >
+              <label for="">Profile</label>
+            </div>
+            <div
+              class="col-4 col-sm darkenhold mt-3"
+              id="butb"
+              onclick="bclicked()"
+            >
+              <label for="">Contact</label>
+            </div>
+            <div
+              class="col-4 col-sm darkenhold mt-3"
+              id="butc"
+              onclick="cclicked()"
+            >
+              <label for="">Spellbook</label>
+            </div>
+            <div
+              class="col col-sm darkenhold mt-3"
+              id="butd"
+              onclick="dclicked()"
+            >
+              <label for="">Class Schedule</label>
+            </div>
+            <div
+              class="col col-sm darkenhold2 mt-3"
+              id="bute"
+              onclick="warp('../index.html')"
+            >
+              <label for="">Home Page</label>
+            </div>
+          </div>
+
+          <div
+            class="containholder container"
+            style="padding: 0px; background-color: rgb(194, 194, 194)"
+          >
+            <br />
+            <br />
+            <div
+              class="containholderA container"
+              id="containholderA"
+              style="position: fixed; opacity: 0"
+            >
+              <label for=""
+                ><h1>Chirurun (チルルン) (ชิรุรุน)</h1>
+                <h2>Yonaki Seimei (夜鳴き 生命) (โยนากิ เซย์เมย์)</h2></label
+              >
+
+              <div class="row">
+                <div class="col-12 col-sm-6">
+                  <img src="image/Normal.png" class="img-thumbnail" />
+                </div>
+                <div class="col-12 col-sm-6">
+                  <label for=""
+                    ><p class="text-start">
+                      ไอหนุ่มคนหนึงไม่บอกชื่อ วันหนึ่งดันติดเข้าไปอยู่ในเกม
+                      แล้วดันเป็นตัวละครหญิง และใช้ชีวิตแบบนั้นเรื่อยมา
+                      โดยหากินจากการขโมยของคนอื่นเอา <br />
+                      เขาเป็นขโมยก็เพราะว่า มีคนมากมายในโลกที่จากมา
+                      ที่ๆคนดีนั้นอยู่ยากลำบาก
+                      เพราะทุกคนแก่งแย่งชิงดีเพื่อออกจากโลกนั้น <br />
+                      เขานั้นขึ้นชื่อว่าเป็นหัวขโมยชื่อดังจากโลกเดิม
+                      ด้วยสกิลที่ไม่เคยมีใครรู้จักด้วยเงื่อนไขการได้รับที่ออกจะดูไร้สาระและโง่เง่ายิ่งนัก
+                      แต่เพราะว่า หน้าที่หลักคือการรวบรวมข้อมูล และสอดแนม <br />
+                      สกิลของเขาก็กลายเป็นที่ต้องการมาก และแน่นอนว่า โดยส่วนใหญ่
+                      สกิลเหล่านี้มีเพียงไม่กี่คนที่มี และไม่มีการบอกต่อซึ่งกัน
+                      <br />
+                      จึงได้รับนามว่า “หน้ากากจิ้งจอก”
+                      ซึ่งมีความหมายว่าเป็นนักต้มตุ๋นยอดเยี่ยมนั่นเอง
+                      ใบหน้าภายใต้หน้ากากนั้นยังคงเป็นความลับ
+                      และไม่มีใครทราบมาจนถึงทุกวันนี้<br />
+                      หน้ากากที่สวมใส่นั้น ก็เป็นหน้ากากต้องสาป มอบพลังให้กับเขา
+                      แลกกับความทรงจำบางอย่างที่หายไปแล้ว เกมที่เขาจากมานั้น
+                      มันได้กลืนกินถ้าชวิตเขาไปแล้ว<br />
+                      ไม่นานนัก เขาก็ถูกพระเจ้ากลั่นแกล้ง
+                      ส่งท้ารอให้สักกวันไปสู้ท้าทายกับพระเจ้าของเธอซะแทน
+                      แต่กลับกัน เขาดันได้ความทรงจำทั้งหมดของเขาคืนมาแล้ว
+                    </p></label
+                  >
+                </div>
+              </div>
+            </div>
+            <div
+              class="containholderB container"
+              id="containholderB"
+              style="position: fixed; opacity: 0"
+            >
+              <div class="row">
+                <div
+                  class="col darkenhold"
+                  id="linka"
+                  onclick="warp('https://discord.com/app')"
+                >
+                  <label for="">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      fill="currentColor"
+                      class="bi bi-discord"
+                      viewBox="0 0 16 16"
+                    >
+                      <path
+                        d="M13.545 2.907a13.2 13.2 0 0 0-3.257-1.011.05.05 0 0 0-.052.025c-.141.25-.297.577-.406.833a12.2 12.2 0 0 0-3.658 0 8 8 0 0 0-.412-.833.05.05 0 0 0-.052-.025c-1.125.194-2.22.534-3.257 1.011a.04.04 0 0 0-.021.018C.356 6.024-.213 9.047.066 12.032q.003.022.021.037a13.3 13.3 0 0 0 3.995 2.02.05.05 0 0 0 .056-.019q.463-.63.818-1.329a.05.05 0 0 0-.01-.059l-.018-.011a9 9 0 0 1-1.248-.595.05.05 0 0 1-.02-.066l.015-.019q.127-.095.248-.195a.05.05 0 0 1 .051-.007c2.619 1.196 5.454 1.196 8.041 0a.05.05 0 0 1 .053.007q.121.1.248.195a.05.05 0 0 1-.004.085 8 8 0 0 1-1.249.594.05.05 0 0 0-.03.03.05.05 0 0 0 .003.041c.24.465.515.909.817 1.329a.05.05 0 0 0 .056.019 13.2 13.2 0 0 0 4.001-2.02.05.05 0 0 0 .021-.037c.334-3.451-.559-6.449-2.366-9.106a.03.03 0 0 0-.02-.019m-8.198 7.307c-.789 0-1.438-.724-1.438-1.612s.637-1.613 1.438-1.613c.807 0 1.45.73 1.438 1.613 0 .888-.637 1.612-1.438 1.612m5.316 0c-.788 0-1.438-.724-1.438-1.612s.637-1.613 1.438-1.613c.807 0 1.451.73 1.438 1.613 0 .888-.631 1.612-1.438 1.612"
+                      />
+                    </svg>
+                    cirnodayo4775
+                  </label>
+                </div>
+                <div
+                  class="col darkenhold"
+                  id="linkb"
+                  onclick="warp('https://www.youtube.com/channel/UCXtR8xy4RUDk27QrjqkYQbA')"
+                >
+                  <label for=""
+                    ><svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      fill="currentColor"
+                      class="bi bi-youtube"
+                      viewBox="0 0 16 16"
+                    >
+                      <path
+                        d="M8.051 1.999h.089c.822.003 4.987.033 6.11.335a2.01 2.01 0 0 1 1.415 1.42c.101.38.172.883.22 1.402l.01.104.022.26.008.104c.065.914.073 1.77.074 1.957v.075c-.001.194-.01 1.108-.082 2.06l-.008.105-.009.104c-.05.572-.124 1.14-.235 1.558a2.01 2.01 0 0 1-1.415 1.42c-1.16.312-5.569.334-6.18.335h-.142c-.309 0-1.587-.006-2.927-.052l-.17-.006-.087-.004-.171-.007-.171-.007c-1.11-.049-2.167-.128-2.654-.26a2.01 2.01 0 0 1-1.415-1.419c-.111-.417-.185-.986-.235-1.558L.09 9.82l-.008-.104A31 31 0 0 1 0 7.68v-.123c.002-.215.01-.958.064-1.778l.007-.103.003-.052.008-.104.022-.26.01-.104c.048-.519.119-1.023.22-1.402a2.01 2.01 0 0 1 1.415-1.42c.487-.13 1.544-.21 2.654-.26l.17-.007.172-.006.086-.003.171-.007A100 100 0 0 1 7.858 2zM6.4 5.209v4.818l4.157-2.408z"
+                      />
+                    </svg>
+                    Teamlol Studio
+                  </label>
+                </div>
+                <div class="col darkenhold" id="linkc" onclick="warp()">
+                  <label for="">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      fill="currentColor"
+                      class="bi bi-facebook"
+                      viewBox="0 0 16 16"
+                    >
+                      <path
+                        d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951"
+                      />
+                    </svg>
+                    โน่ ยอดนักแปลแห่งสมาพันธ์ตะวันออก
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div
+              class="containholderC container"
+              id="containholderC"
+              style="position: fixed; opacity: 0"
+            >
+              <div class="row container">
+                <div class="col-4 col-md-3 container">
+                  <div class="row container">
+                    <div
+                      class="col-12 darkenhold3"
+                      id="worka"
+                      onclick="workclick('worka','Sealed Arrow','เมื่อใช้ สามารถยิงธนูแบบติดตาม และทะลุสิ่งกีดขวางทั้งปวงได้ เมื่อเข้าเป้าหมาย จะทำให้ทั้งสองฝ่ายติดสถานะ <ห้ามใช้สกิล> <ปืดสกิลติดตัว> เป็นระยะเวลา 3 เทิร์น (ไม่มีผลกับสกิลที่ถูกกำกับให้ไม่สามารถถูกปิดได้)\nสามารถใช้ได้แม้อยู่ในสถานะ <หายตัวสมบูรณ์> และออกจากสถานะทันที\n[Unsealed] : สถานะนี้ไม่สามารถถูกลบล้างได้\nRequirement : Agi(700) Dex(300)')"
+                    >
+                      <label for="">Sealed Arrow</label>
+                    </div>
+                    <div
+                      class="col-12 darkenhold3"
+                      id="workb"
+                      onclick="workclick('workb','I was Here','เข้าสู่สถานะ <หายตัวสมบูรณ์>\nระหว่างอยู่ในสถานะดังกล่าวจะไม่สามารถใช้สกิลได้\n[Unsealed] : การล่องหนจะสมบูรณ์แบบ และเมื่อถูกโจมตี จะไม่ติดสถานะชา ดาเมจการโจมตีดังกล่าวลดลงครึ่งหนึ่ง\nRequirement : Agi(800) | Class Rouge')"
+                    >
+                      <label for="">I was Here</label>
+                    </div>
+                    <div
+                      class="col-12 darkenhold3"
+                      id="workc"
+                      onclick="workclick('workc','10th Senses','สามารถรับรู้ถึงเสียง การเคลื่อนไหว รูปร่างเป็นภาพขาวดำได้ทั้งหมดโดยจะแสดงออกอย่างแตกต่างกัน โดยมีระยะการรับรู้อยู่ที่ 40 เมตร\n[Unsealed] : การรับรู้เร็วขึ้น 2 เท่า\nRequirement : สวมใส่ของต้องสาป')"
+                    >
+                      <label for="">10th Senses</label>
+                    </div>
+                    <div
+                      class="col-12 darkenhold3"
+                      id="workd"
+                      onclick="workclick('workd','Queen of Sound (Echo)','เล่นเครื่องดนตรีได้แทบทุกชนิด ขอแค่ได้ลองจับ ก็จะสามารถเล่นได้ทันที\nและยังสามารถเล่นเพลงจากในหัวที่นึกคิดให้ทุกคนได้ยินได้ แตในส่วนนี้สามารถเลือกที่จะไม่ได้ยินได้เช่นกัน ด้วยการสัมผัสตัวผู้ใช้ แต่ไม่สามารถเล่นเพลงที่มีเสียงร้องออกมาได้\nสามารถแยกเสียงทั้งหมดออกจากกันและระบุแหล่งที่มาได้อย่างชัดเจน\n[Unsealed] : สามารถทำให้เป้าหมาย 1 คนไม่ได้ยินเสียงทุกอย่างได้ตลอดการต่อสู้ แลกกับตนเองก็จะไม่ได้ยินเช่นกัน\nRequirement : ครอบครอง ราชินีแห่งเสียงสรรค์ และอัพเป็น Class 4')"
+                    >
+                      <label for="">Queen of Sound (Echo)</label>
+                    </div>
+                    <div
+                      class="col-12 darkenhold3"
+                      id="worke"
+                      onclick="workclick('worke','Seal of Forgotten (Controled)','ปลดปล่อยพลังทุกสกิลให้สามารถใช้พลังในรูปแบบ [Unsealed] ได้ ฟื้นฟูร่างกายสมบูรณ์\nความเสียหายที่ได้รับและสร้างสูงขึ้นจากปกติ 2 เท่า\nป้องกันสกิลประเภทควบคุม และการอ่านใจโดยสมบูรณ์\nเงื่อนไขการใช้ : เมื่อหน้ากากแตกออกจากการถูกทำลาย\nRequirement : หน้ากากต้องสาป')"
+                    >
+                      <label for="">Seal of Forgotten (Controled)</label>
+                    </div>
+                    <div
+                      class="col-12 darkenhold3"
+                      id="workf"
+                      onclick="workclick('workf','Status of Player (Exiled)','เป็นสกิลเฉพาะที่ไม่สามารถถูกเลียนแบบได้ ผู้ครอบครองสกิลนี้มีเพียงคนมาจากโลกเดียวกับเธอเท่านั้น\nทุกสกิลมี Requirement ซึ่งจะมีเพียงคนจากโลกเธอที่มีเท่านั้น ถึงจะสามารถใช้ได้\nไม่รับสถานะผิดปกติเกี่ยวกับวิญญาณ และภาพลวงตา\nและเมื่อตาย สามารถฟื้นขึ้นมา และสู้ต่อได้ 3 ครั้ง\nเมื่อครบ 3 ครั้ง หน้ากากจะแตกออก และการตายครั้งต่อไปจะเป็นการตายจริงๆ\nรีเซ็ตเมื่อกลับ Warp Central\nหากสกิลนี้ทำงานแล้ว จะไม่สามารถออกจากการต่อสู้ได้ จนกว่าการต่อสู้จะจบลง\nจะได้รับจุดอ่อนต่อไปนี้\nไม่ได้ยินเสียง ตาบอด พูดไม่ได้')"
+                    >
+                      <label for="">Status of Player (Exiled)</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-1 container"></div>
+                <div class="col container">
+                  <label for=""
+                    ><h2 id="workheader">Spellbook</h2>
+                    <p id="workdetail1" class="text-start"></p>
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div
+              class="containholderD container"
+              id="containholderD"
+              style="position: fixed; opacity: 0"
+            >
+              <div class="row">
+                <div class="col darkenhold" id="daya" onclick="dayaclicked()">
+                  <label for="">Monday</label>
+                </div>
+                <div class="col darkenhold" id="dayb" onclick="daybclicked()">
+                  <label for="">Tuesday</label>
+                </div>
+                <div class="col darkenhold" id="dayc" onclick="daycclicked()">
+                  <label for="">Wednesday</label>
+                </div>
+                <div class="col darkenhold" id="dayd" onclick="daydclicked()">
+                  <label for="">Thursday</label>
+                </div>
+                <div class="col darkenhold" id="daye" onclick="dayeclicked()">
+                  <label for="">Friday</label>
+                </div>
+              </div>
+              <br /><br />
+              <div class="row" style="border: black 2px solid">
+                <div class="col-5" style="border: black 2px solid">Time</div>
+                <div class="col-5" style="border: black 2px solid">Class</div>
+                <div class="col" style="border: black 2px solid">Room</div>
+                <div
+                  id="morningtime"
+                  class="col-5"
+                  style="border: black 2px solid"
+                >
+                  -
+                </div>
+                <div
+                  id="morningclass"
+                  class="col-5"
+                  style="border: black 2px solid"
+                >
+                  -
+                </div>
+                <div
+                  id="morningroom"
+                  class="col"
+                  style="border: black 2px solid"
+                >
+                  -
+                </div>
+                <div
+                  id="aftertime"
+                  class="col-5"
+                  style="border: black 2px solid"
+                >
+                  -
+                </div>
+                <div
+                  id="afterclass"
+                  class="col-5"
+                  style="border: black 2px solid"
+                >
+                  -
+                </div>
+                <div id="afterroom" class="col" style="border: black 2px solid">
+                  -
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="mainjava.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+      integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+      integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

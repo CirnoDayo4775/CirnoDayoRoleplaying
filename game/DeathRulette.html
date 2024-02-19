@@ -171,11 +171,14 @@
         if (randomArray[currentbullet-1] == 1) {
           document.getElementById("shooot").play();
           lifeupdate(target, -1);
+          document.getElementById('shotout').textContent = "กระสุนลูกที่ "+(currentbullet)+' เป็นกระสุนจริง HP-1';
         } else {
           document.getElementById("click").play();
+          document.getElementById('shotout').textContent = "กระสุนลูกที่ "+(currentbullet)+' เป็นกระสุนด้านล่ะ คุณได้ยิงต่อ';
         }
         if (currentbullet == randomArray.length) {
           startgame();
+          
         }
       }
       
