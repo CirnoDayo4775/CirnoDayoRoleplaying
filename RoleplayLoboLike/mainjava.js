@@ -15,7 +15,7 @@ function cclicked() {
   document.getElementById("butc").style.transform = "translateY(0%)";
   document.getElementById("containholderC").style.opacity = 1;
   document.getElementById("containholderC").style.zIndex = 3;
-
+  
   weveryoneoff();
 
   document.getElementById("workheader").innerText = "Welcome to my Gallery";
@@ -23,31 +23,31 @@ function cclicked() {
     "Here's work's gallery! you can see my notable work here!";
   document.getElementById("workdetail2").innerText =
     "Please select your work you want to see by using button on the left.";
-  document.getElementById("workimage").src = "../thumbnail/soon.png";
+  document.getElementById("workimage").src = "../thumbnail/soon.png";workbutclickA('A');
 }
-function dclicked() {
+/*function dclicked() {
   everyoneoff();
-  document.getElementById("butd").style.transform = "translateY(0%)";
-  document.getElementById("containholderD").style.opacity = 1;
-  document.getElementById("containholderD").style.zIndex = 3;
+ // document.getElementById("butd").style.transform = "translateY(0%)";
+  //document.getElementById("containholderD").style.opacity = 1;
+  //document.getElementById("containholderD").style.zIndex = 3;
   everyoneup();
-}
+}*/
 
 function everyoneoff() {
   document.getElementById("buta").style.transform = "translateY(50%)";
   document.getElementById("butb").style.transform = "translateY(50%)";
   document.getElementById("butc").style.transform = "translateY(50%)";
-  document.getElementById("butd").style.transform = "translateY(50%)";
+ // document.getElementById("butd").style.transform = "translateY(50%)";
 
   document.getElementById("containholderA").style.opacity = 0;
   document.getElementById("containholderB").style.opacity = 0;
   document.getElementById("containholderC").style.opacity = 0;
-  document.getElementById("containholderD").style.opacity = 0;
+  //document.getElementById("containholderD").style.opacity = 0;
 
   document.getElementById("containholderA").style.zIndex = 0;
   document.getElementById("containholderB").style.zIndex = 0;
   document.getElementById("containholderC").style.zIndex = 0;
-  document.getElementById("containholderD").style.zIndex = 0;
+  //document.getElementById("containholderD").style.zIndex = 0;
 }
 
 function dayaclicked() {
@@ -141,52 +141,69 @@ function warp(destinationA) {
 }
 
 window.onload = function () {
-  aclicked();
+  bclicked();
 };
 
-function workaclick() {
+function workbutclickA(inputfor){
   weveryoneoff();
-  document.getElementById("worka").style.transform = "translateX(30%)";
-  document.getElementById("workheader").innerText = "Bunkshot Roulette";
-  document.getElementById("workdetail1").innerText =
-    "A re-made on HTML from the famous game, Bulkshot Roulette.\nFull mechanic of randomizing and remembering.";
-  document.getElementById("workdetail2").innerText =
-    "If you wander how can I play? You can see it on the Warp Station on the DeathRulette one!";
-  document.getElementById("workimage").src = "img/work1.png";
-}
-function workbclick() {
-  weveryoneoff();
-  document.getElementById("workb").style.transform = "translateX(30%)";
-  document.getElementById("workheader").innerText = "Deal or No Deal";
-  document.getElementById("workdetail1").innerText = "A game based on game shows name 'Deal or No Deal' which let you choose 1 box. \nThen Pick a box by box. There's will be deal of money for you to stop choosing. If you choose to pick up box to last one. You get money on your box.";
-  document.getElementById("workdetail2").innerText = "Try out the game play in Warp Station on the DoND one!";
-  document.getElementById("workimage").src = "img/dond.png";
-}
-function workcclick() {
-  weveryoneoff();
-  document.getElementById("workc").style.transform = "translateX(30%)";
-  document.getElementById("workheader").innerText = "Full scale index";
-  document.getElementById("workdetail1").innerText = "This is the full scale animation index. I tried to replicated the Blue Archive game's home screen with HTML. All of this iss made on HTML, css, and javascript. Used Bootsrap for mobile support.";
-  document.getElementById("workdetail2").innerText = "If you want to see it in full scale, please click Home Page button on the top left.";
-  document.getElementById("workimage").src = "img/inde.png";
-}
-function workdclick() {
-  weveryoneoff();
-  document.getElementById("workd").style.transform = "translateX(30%)";
-  document.getElementById("workheader").innerText = "Minimized Port";
-  document.getElementById("workdetail1").innerText = "Portfolio made with the concept of 'Less Deco, More functional'. All button here is functional and interactable.";
-  document.getElementById("workdetail2").innerText = "You can try mess up with the pages here. It's has been checked and QC-ed with my discord friend! 95% input error preventing. Still... Unable to prevent spamming tho.";
-  document.getElementById("workimage").src = "img/MinimizedPort.png";
+
+  if(inputfor=='A'){
+    document.getElementById("worka").style.transform = "translateX(30%)";
+    document.getElementById("workheader").innerText = "Meister Kaksik";
+    document.getElementById("workdetail1").innerText =
+      "Male\nAge : 28 Y/O\nHeight : 166 cm\nWeight 45.6 kg";
+    document.getElementById("workdetail2").innerText =
+      "Habit :\n- Talkative : Can speak in any normal situation\n- Self-awareness : Able to guess/feeling-like whenever you are called.\n- Risk taker : Able to participate in higher treat level.\n- Gambler : Can do gambling host for fun.\n\nTrait :\n- Loud : Cannot be gossip. (Can choose not to speak)";
+    document.getElementById("workimage").src = "img/boy.jpg";
+  }
+  if(inputfor=='B'){
+    document.getElementById("workb").style.transform = "translateX(30%)";
+    document.getElementById("workheader").innerText = "Maucmop Kaksik";
+    document.getElementById("workdetail1").innerText =
+      "Female\nAge : 27 Y/O\nHeight : 155 cm\nWeight 44.5 kg";
+    document.getElementById("workdetail2").innerText =
+      "Habit :\n- Acknowledge : Easy learner\n- Careful : Able to see choose to not work in danger situation.\n- Slow-roll : In roll check, will roll it last.\n- Bartender : Can do bartendering.\n\nTrait :\n- Overconfidence : Will not work with other if possible.";
+    document.getElementById("workimage").src = "img/girl.jpg";
+  }
+  if(inputfor=='C'){
+    document.getElementById("workc").style.transform = "translateX(30%)";
+    document.getElementById("workheader").innerText = "Mestre Kaksik";
+    document.getElementById("workdetail1").innerText =
+      "Male\nAge : 22 Y/O\nHeight : 158 cm\nWeight 51.6 kg";
+    document.getElementById("workdetail2").innerText =
+      "Habit :\n- Mind Clearance : Can witness the dire situation easily.\n- Controlable : Able to persuade someone to take risk.\n- Cleared Value : Always stay clean.\n- Consultant : Able to do consultant.\n\nTrait :\n- Greed : If money is related, always take whatever it is for money.";
+    document.getElementById("workimage").src = "img/boy.jpg";
+  }
+  if(inputfor=='D'){
+    document.getElementById("workd").style.transform = "translateX(30%)";
+    document.getElementById("workheader").innerText = "Mjeshter Kaksik";
+    document.getElementById("workdetail1").innerText =
+      "Female\nAge : 32 Y/O\nHeight : 164 cm\nWeight 47.9 kg";
+    document.getElementById("workdetail2").innerText =
+      "Habit :\n- Endured : Will not suffer mentally pain from getting physical hurt.\n- Justice : Can sacrifice self for other safety.\n- Fleet step : Walk faster than other.\n- Paper Assistance : Can do paper work perfectly.\n\nTrait :\n- Shorten Temper : Easily angered.";
+    document.getElementById("workimage").src = "img/girl.jpg";
+  }
+  if(inputfor=='E'){
+    document.getElementById("worke").style.transform = "translateX(30%)";
+    document.getElementById("workheader").innerText = "Tatsujin Kaksik";
+    document.getElementById("workdetail1").innerText =
+      "Male\nAge : 29 Y/O\nHeight : 172 cm\nWeight 62.9 kg";
+    document.getElementById("workdetail2").innerText =
+      "Habit :\n- Charming : Everything like him\n- Workaholic : Able to work consistnctly without break.\n- Focused : Will throw dummy dice to test before real one.\n- Home cook : He can cook.\n\nTrait :\n- Fagile : Can get hurt by minor injury.";
+    document.getElementById("workimage").src = "img/boy.jpg";
+  }
+
+
+
+
+
+
+  if(inputfor=='F'){
+
+  }
 }
 
-function workeclick() {
-  weveryoneoff();
-  document.getElementById("worke").style.transform = "translateX(30%)";
-  document.getElementById("workheader").innerText = "WIP";
-  document.getElementById("workdetail1").innerText = "";
-  document.getElementById("workdetail2").innerText = "";
-  document.getElementById("workimage").src = "img/wtf.jpg";
-}
+
 
 function weveryoneoff() {
   document.getElementById("worka").style.transform = "translateX(0%)";
