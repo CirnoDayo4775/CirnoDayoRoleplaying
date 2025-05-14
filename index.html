@@ -1,20 +1,324 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CirnoDayo's Main Page</title>
-    <link rel="stylesheet" href="scripter/templatebg.css">
-</head>
-<body>
-    <video id="backgroundVid" autoplay loop><!-- Background Video -->
-        <source src="https://cdn.donmai.us/original/63/8c/__iz_original_drawn_by_asteroid_ill__638c43d13dbe6a7e91dd9c216b79a5fc.mp4">
-    </video>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="scripter/templatebg.css"></script>
+  </head>
+  <style>
+    body {
+      overflow: hidden;
+      font-family: "printable4u";
+      color: white;
+    }
 
-    <div id="mainscreen" class="screen">
-        <div>
-            
+    .scrollable-content {
+      /* Example class for a scrollable content area */
+      height: 80vh; /* Example height */
+      overflow-y: none; /* Enables vertical scrolling */
+      /* You can also use 'overflow: scroll;' if you always want the scrollbar visible */
+      
+    }
+  </style>
+  <body>
+    <nav class="bg-gray-800 sticky top-0 z-50" id="">
+      <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+        <div class="relative flex h-16 items-center justify-between">
+          <div
+            class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0"
+          >
+            <div class="flex flex-shrink-0 items-center">
+              <img
+                class="h-8 w-auto"
+                src="../../img asset/blue archive/MP_Cafe.webp"
+                alt="CirnoDayo4775"
+              />
+            </div>
+          </div>
+
+          <div
+            class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-center"
+          >
+            <div class="hidden sm:ml-6 sm:block">
+              <div class="flex space-x-4 justify-between">
+              </div>
+            </div>
+          </div>
+          <div
+            class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0"
+          >
+            <button
+              type="button"
+              class="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+            >
+              <span class="absolute -inset-1.5"></span>
+              <span class="sr-only">View notifications</span>
+              <svg
+                class="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                aria-hidden="true"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0"
+                />
+              </svg>
+            </button>
+          </div>
         </div>
+      </div>
+
+      <!-- Mobile menu, show/hide based on menu state. -->
+      <div class="sm:hidden" id="mobile-menu">
+        <div class="space-y-1 px-2 pb-3 pt-2">
+          <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
+          <a
+            href="#"
+            class="block rounded-md bg-gray-900 px-3 py-2 text-base font-medium text-white"
+            aria-current="page"
+            >Dashboard</a
+          >
+          <a
+            href="#"
+            class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
+            >Team</a
+          >
+          <a
+            href="#"
+            class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
+            >Projects</a
+          >
+          <a
+            href="#"
+            class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
+            >Calendar</a
+          >
+        </div>
+      </div>
+    </nav>
+
+    <div class="scrollable-content p-3">
+      <div
+        class="grid grid-rows-12 gap-4 border border-black border-2 p-3 m-1"
+        style="height: 100%"
+      >
+        <div class="row-span-12 border-2">
+          <div
+            class="grid grid-cols-12 gap-4 border border-black border-2 p-3 m-1"
+            style="height: 100%"
+          >
+            <div class="grid col-span-3 border-2">
+              <div class="flex-wrap justify-center content-center">
+                <img
+                  src="chirurun/profile/image/Normal.png"
+                  alt=""
+                  class="border-2 border-black rounded-lg"
+                />
+              </div>
+            </div>
+            <div class="col-span-4 border-2 bg-gray-700 p-5">
+              <div class="grid grid-rows-12" style="height: 100%;">
+                <div class="row-span-3">
+                  <div class="grid grid-cols-12" style="height: 100%;">
+                    <div class="col-span-6 border-2 content-center text-center">
+    <h1>NAME :</h1>
+    (Shichima) Chirurun
+                    </div>
+                    <div class="col-span-6 border-2 content-center text-center">
+                      <h1>Class :</h1>
+                      Archer / Trickster
+                    </div>
+                  </div>
+                </div>
+                <div class="flex row-span-9 border-2 p-5" style="overflow-y:hidden;">
+<p id="profilebox" style="white-space: pre-wrap;">
+  Loading. . .
+</p>
+                </div>
+              </div>
+            </div>
+            <div
+              class="col-span-4 border-2 bg-gray-700"
+              id=""
+              style="overflow-y:scroll"
+            >
+              <div class="grid grid-rows-12 p-5">
+                <div class="border-2 my-3">
+                  <div class="grid grid-cols-12 p-3">
+                    <div class="col-span-3">
+                      <img src="skill/l1.png" alt="" />
+                    </div>
+                    <div class="col-span-9 mx-4">
+                      <h1 class="text-3xl">Status of Player</h1>
+                      <p>
+                        - Uneffected by status aliments. <br />
+                        - Can be withstood death 3 times (Reset by saving)
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="border-2 my-3">
+                  <div class="grid grid-cols-12 p-3">
+                    <div class="col-span-3">
+                      <img src="skill/l2.png" alt="" />
+                    </div>
+                    <div class="col-span-9 mx-4">
+                      <h1 class="text-3xl">Sealed Arrow</h1>
+                      <p>
+                        - Inflict [Sealed] both user and target for 3 turns<br />
+                        - Can be use while [Stealth] and ignore [Silenced]
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="border-2 my-3">
+                  <div class="grid grid-cols-12 p-3">
+                    <div class="col-span-3">
+                      <img src="skill/l3.png" alt="" />
+                    </div>
+                    <div class="col-span-9 mx-4">
+                      <h1 class="text-3xl">I was Here</h1>
+                      <p>
+                        - Gain [Stealth] / [Silenced]<br />
+                        - Can be use while [Stealth]
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="border-2 my-3">
+                  <div class="grid grid-cols-12 p-3">
+                    <div class="col-span-3">
+                      <img src="skill/l4.png" alt="" />
+                    </div>
+                    <div class="col-span-9 mx-4">
+                      <h1 class="text-3xl">10th Senses</h1>
+                      <p>
+                        - Uneffected by [Blind] [Dead Eyes] [Vision Blur]<br />
+                        - Cannot be effected by status involved seeing
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="border-2 my-3">
+                  <div class="grid grid-cols-12 p-3">
+                    <div class="col-span-3">
+                      <img src="skill/l2.png" alt="" />
+                    </div>
+                    <div class="col-span-9 mx-4">
+                      <h1 class="text-3xl">Queen of Sound</h1>
+                      <p>
+                        - Disable 'Chat' function for period of time <br />
+                        - Can use [Soundboard] function
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="border-2 my-3">
+                  <div class="grid grid-cols-12 p-3">
+                    <div class="col-span-3">
+                      <img src="skill/l2.png" alt="" />
+                    </div>
+                    <div class="col-span-9 mx-4">
+                      <h1 class="text-3xl">Seal of Forgotten</h1>
+                      <p>
+                        - Amplified income and outcome damage <br />
+                        - Uneffected by Absolute Control effected
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-span-1 border-2"></div>
+          </div>
+        </div>
+      </div>
     </div>
-</body>
+
+    <footer class="bg-white shadow dark:bg-gray-900">
+      <div class="w-full max-w-screen-xl mx-auto pb-3">
+        <div class="sm:flex sm:items-center sm:justify-between">
+          <a
+            href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+            class="flex items-center mb-4 sm:mb-0 space-x-3 rtl:space-x-reverse"
+          >
+            <img
+              src="../../img asset/blue archive/MP_Cafe.webp"
+              class="h-8"
+              alt="Flowbite Logo"
+            />
+            <span
+              class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white"
+              >CirnoDayo</span
+            >
+          </a>
+          <ul
+            class="flex flex-wrap items-center mb-6 text-sm font-medium text-gray-500 sm:mb-0 dark:text-gray-400"
+          >
+            <li>
+              <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" class="hover:underline me-4 md:me-6">About</a>
+            </li>
+            <li>
+              <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" class="hover:underline me-4 md:me-6"
+                >Privacy Policy</a
+              >
+            </li>
+            <li>
+              <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" class="hover:underline me-4 md:me-6">Licensing</a>
+            </li>
+            <li>
+              <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" class="hover:underline">Contact</a>
+            </li>
+          </ul>
+        </div>
+        <hr
+          class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8"
+        />
+        <span
+          class="block text-sm text-gray-500 sm:text-center dark:text-gray-400"
+          >2025
+          <a
+            href="https://cirnodayo4775.github.io/055_Tuangwit_WebPrograming/"
+            class="hover:underline"
+            >CirnoDayo4775</a
+          >'s Rights Reserved.</span
+        >
+      </div>
+    </footer>
+
+    <script>
+
+
+let jsontext = {};
+      document.body.style.overflow = "hidden"; // Hide scroll bar on body
+fetch('text.json')
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    return response.json();
+  })
+  .then(text => {
+    jsontext = text;
+    document.getElementById('profilebox').textContent = text.profiletextEN;
+  })
+  .catch(error => {
+    console.error('There was a problem with the fetch:', error);
+  });
+
+      // To allow scrolling on a specific element (e.g., with class 'scrollable-content'):
+      var scrollableContent = document.querySelector(".scrollable-content");
+      //scrollableContent.style.overflowY = "auto"; // or 'scroll' if you always want the scrollbar visible
+    </script>
+  </body>
 </html>
