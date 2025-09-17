@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Three Column Layout</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            display: flex;
+            min-height: 100vh;
+            width: 100%;
+            
+        }
+        .col {
+            box-sizing: border-box;
+            flex-grow: 0;
+            flex-shrink: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+        }
+        #col1, #col3 {
+            align-items: center;
+        }
+        #col1 > h4, #col3 > h4 {
+            width: 100%;
+            text-align: center;
+        }
+        #news1, #news3 {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+        }
+        .col1 {
+            flex-basis: 20%;
+            border-right: 2px solid black;
+        }
+        .col2 {
+            flex-basis: 60%;
+            border-right: 2px solid black;
+        }
+        .col3 {
+            flex-basis: 20%;
+        }
+        @media (max-width: 100vw) and (max-width: 100vh) {
+            .container {
+                display: block;
+            }
+            .col1, .col3 {
+                display: none;
+            }
+            .col2 {
+                width: 100%;
+                border: none;
+            }
+        }
+        .news-item {
+            margin-bottom: 1em;
+        }
+        .news-card {
+            background: #fff;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            padding: 1em;
+            margin-bottom: 1em;
+            transition: box-shadow 0.2s;
+        }
+        .news-card:hover {
+            box-shadow: 0 4px 16px rgba(0,0,0,0.16);
+        }
+    </style>
+    <script>
+        function updateClock() {
+            const now = new Date();
+            const clock = document.getElementById('clock');
+            if (clock) {
+                clock.textContent = now.toLocaleTimeString();
+            }
+        }
+        document.addEventListener('DOMContentLoaded', function() {
+            updateClock();
+            setInterval(updateClock, 1000);
+            // Load news for each column
+            loadNews('NewsArchive.json', 'news1');
+            loadNews('NewsToday.json', 'news2');
+            loadNews('NewsSponsors.json', 'news3');
+        });
+
+        function loadNews(jsonFile, containerId) {
+            fetch(jsonFile)
+                .then(response => {
+                    if (!response.ok) throw new Error('Network response was not ok');
+                    return response.json();
+                })
+                .then(data => {
+                    const container = document.getElementById(containerId);
+                    if (container && data.News) {
+                        container.innerHTML = data.News.map(news =>
+                            `<div class="news-card">
+                                <strong>${news.Title}</strong><br>
+                                <span>${news.Desc}</span>
+                            </div>`
+                        ).join('');
+                    }
+                })
+                .catch(error => {
+                    const container = document.getElementById(containerId);
+                    if (container) {
+                        container.innerHTML = `<span style='color:red;'>Failed to load news.</span>`;
+                    }
+                });
+        }
+    </script>
+</head>
+<body>
+        <!-- Navigation/Header Bar -->
+    <nav class="navbar navbar-expand-lg sticky-top" style="background-color: #111; color: #fff;">
+            <div class="container-fluid justify-content-between align-items-center">
+                <span class="navbar-text text-white fw-bold" style="font-size: 1.1rem;">
+                    <span id="date">September 17, 2025</span>
+                </span>
+                <span class="navbar-brand mx-auto text-white fw-bold" style="font-size: 1.5rem;">Bunbunmaru News</span>
+                <span class="navbar-text text-white fw-bold" style="font-size: 1.1rem;">
+                    <span id="clock"></span>
+                </span>
+            </div>
+        </nav>
+        <div class="container">
+            <div class="col col1" id="col1">
+                <h1>Archive</h1>
+                <div id="news1"></div>
+            </div>
+            <div class="col col2" id="col2">
+                <h1>ข่าวฉบับล่าสุด</h1>
+                <div id="news2"></div>
+            </div>
+            <div class="col col3" id="col3">
+                <h1>ข่าวพิเศษ</h1>  
+                <div id="news3"></div>
+            </div>
+        </div>
+</body>
+</html>
