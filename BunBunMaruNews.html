@@ -252,6 +252,12 @@
             if (clock) {
                 clock.textContent = now.toLocaleTimeString();
             }
+                // Update date
+                const dateSpan = document.getElementById('date');
+                if (dateSpan) {
+                    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+                    dateSpan.textContent = now.toLocaleDateString('en-US', options);
+                }
         }
         document.addEventListener('DOMContentLoaded', function() {
             updateClock();
