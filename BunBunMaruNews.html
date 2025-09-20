@@ -7,6 +7,58 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
+            /* Slice and button styles (right button and drawer) */
+            #sliceBtnRight {
+                position: fixed;
+                right: 16px;
+                bottom: 16px;
+                z-index: 1001;
+                background: #222;
+                color: #fff;
+                border: none;
+                border-radius: 50%;
+                width: 56px;
+                height: 56px;
+                display: none;
+                align-items: center;
+                justify-content: center;
+                font-size: 2rem;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+                cursor: pointer;
+            }
+            #sliceDrawerRight {
+                position: fixed;
+                left: 0;
+                bottom: 0;
+                width: 100vw;
+                height: 70vh;
+                background: #fff;
+                box-shadow: 0 -2px 16px rgba(0,0,0,0.18);
+                z-index: 1000;
+                transform: translateY(100%);
+                transition: transform 0.3s;
+                border-top-left-radius: 16px;
+                border-top-right-radius: 16px;
+                overflow-y: auto;
+                padding: 1.5em 1em 1em 1em;
+            }
+            #sliceDrawerRight.open {
+                transform: translateY(0);
+            }
+            #sliceDrawerRight h1 {
+                font-size: 1.3em;
+                margin-bottom: 1em;
+            }
+            #sliceDrawerRightClose {
+                position: absolute;
+                right: 16px;
+                top: 16px;
+                background: none;
+                border: none;
+                font-size: 1.5em;
+                color: #333;
+                cursor: pointer;
+            }
         body {
             margin: 0;
             padding: 0;
@@ -79,7 +131,119 @@
             box-shadow: 0 4px 16px rgba(0,0,0,0.16);
         }
     </style>
+        <style>
+            /* Slice and button styles */
+            #sliceBtn {
+                position: fixed;
+                left: 16px;
+                bottom: 16px;
+                z-index: 1001;
+                background: #222;
+                color: #fff;
+                border: none;
+                border-radius: 50%;
+                width: 56px;
+                height: 56px;
+                display: none;
+                align-items: center;
+                justify-content: center;
+                font-size: 2rem;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+                cursor: pointer;
+            }
+            #sliceDrawer {
+                position: fixed;
+                left: 0;
+                bottom: 0;
+                width: 100vw;
+                height: 70vh;
+                background: #fff;
+                box-shadow: 0 -2px 16px rgba(0,0,0,0.18);
+                z-index: 1000;
+                transform: translateY(100%);
+                transition: transform 0.3s;
+                border-top-left-radius: 16px;
+                border-top-right-radius: 16px;
+                overflow-y: auto;
+                padding: 1.5em 1em 1em 1em;
+            }
+            #sliceDrawer.open {
+                transform: translateY(0);
+            }
+            #sliceDrawer h1 {
+                font-size: 1.3em;
+                margin-bottom: 1em;
+            }
+            #sliceDrawerClose {
+                position: absolute;
+                right: 16px;
+                top: 16px;
+                background: none;
+                border: none;
+                font-size: 1.5em;
+                color: #333;
+                cursor: pointer;
+            }
+            @media (max-width: 100vw) and (max-width: 100vh) {
+                #sliceBtn {
+                    display: flex;
+                }
+                    #sliceBtnRight {
+                        display: flex;
+                    }
+            }
+        </style>
     <script>
+            // Responsive slice logic for right button
+            function openSliceDrawerRight() {
+                closeSliceDrawer(); // Ensure left drawer is closed
+                const drawer = document.getElementById('sliceDrawerRight');
+                if (drawer) {
+                    // Copy col1 content
+                    const col1 = document.getElementById('col1');
+                    if (col1) {
+                        drawer.querySelector('.slice-content-right').innerHTML = col1.innerHTML;
+                    }
+                    drawer.classList.add('open');
+                }
+            }
+            function closeSliceDrawerRight() {
+                const drawer = document.getElementById('sliceDrawerRight');
+                if (drawer) {
+                    drawer.classList.remove('open');
+                }
+            }
+            // Responsive slice logic
+            function isPortrait() {
+                return window.innerWidth < window.innerHeight;
+            }
+            function updateSliceBtnVisibility() {
+                const btn = document.getElementById('sliceBtn');
+                if (btn) {
+                    btn.style.display = isPortrait() ? 'flex' : 'none';
+                }
+            }
+            window.addEventListener('resize', updateSliceBtnVisibility);
+            document.addEventListener('DOMContentLoaded', updateSliceBtnVisibility);
+
+            function openSliceDrawer() {
+                const drawer = document.getElementById('sliceDrawer');
+                if (drawer) {
+                    // Copy col3 content
+                    const col3 = document.getElementById('col3');
+                    if (col3) {
+                        drawer.querySelector('.slice-content').innerHTML = col3.innerHTML;
+                    }
+                    drawer.classList.add('open');
+                }
+            }
+            function closeSliceDrawer() {
+                closeSliceDrawerRight(); // Ensure right drawer is closed
+                const drawer = document.getElementById('sliceDrawer');
+                if (drawer) {
+                    drawer.classList.remove('open');
+                }
+            }
         function updateClock() {
             const now = new Date();
             const clock = document.getElementById('clock');
@@ -135,6 +299,20 @@
                 </span>
             </div>
         </nav>
+        <!-- Slice Button (bottom left) -->
+        <button id="sliceBtn" title="Show special news" onclick="openSliceDrawer()">🔊</button>
+            <!-- Slice Button (bottom right) -->
+            <button id="sliceBtnRight" title="Show archive" onclick="openSliceDrawerRight()">📁</button>
+            <!-- Slice Drawer Right -->
+            <div id="sliceDrawerRight">
+                <button id="sliceDrawerRightClose" onclick="closeSliceDrawerRight()" title="Close">×</button>
+                <div class="slice-content-right"></div>
+            </div>
+        <!-- Slice Drawer -->
+        <div id="sliceDrawer">
+            <button id="sliceDrawerClose" onclick="closeSliceDrawer()" title="Close">×</button>
+            <div class="slice-content"></div>
+        </div>
         <div class="container">
             <div class="col col1" id="col1">
                 <h1>Archive</h1>
