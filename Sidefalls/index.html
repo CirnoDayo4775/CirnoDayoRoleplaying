@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sidefalls News</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+            /* Slice and button styles (right button and drawer) */
+            #sliceBtnRight {
+                position: fixed;
+                right: 16px;
+                bottom: 16px;
+                z-index: 1001;
+                background: #222;
+                color: #fff;
+                border: none;
+                border-radius: 50%;
+                width: 56px;
+                height: 56px;
+                display: none;
+                align-items: center;
+                justify-content: center;
+                font-size: 2rem;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+                cursor: pointer;
+            }
+            #sliceDrawerRight {
+                position: fixed;
+                left: 0;
+                bottom: 0;
+                width: 100vw;
+                height: 70vh;
+                background: #fff;
+                box-shadow: 0 -2px 16px rgba(0,0,0,0.18);
+                z-index: 1000;
+                transform: translateY(100%);
+                transition: transform 0.3s;
+                border-top-left-radius: 16px;
+                border-top-right-radius: 16px;
+                overflow-y: auto;
+                padding: 1.5em 1em 1em 1em;
+            }
+            #sliceDrawerRight.open {
+                transform: translateY(0);
+            }
+            #sliceDrawerRight h1 {
+                font-size: 1.3em;
+                margin-bottom: 1em;
+            }
+            #sliceDrawerRightClose {
+                position: absolute;
+                left: 50%;
+                top: 16px;
+                transform: translateX(-50%);
+                background: none;
+                border: none;
+                font-size: 2.5em;
+                color: #333;
+                cursor: pointer;
+            }
+        body {
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            display: flex;
+            min-height: 100vh;
+            width: 100%;
+            
+        }
+        .col {
+            box-sizing: border-box;
+            flex-grow: 0;
+            flex-shrink: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+        }
+        #col1, #col3 {
+            align-items: center;
+        }
+        #col1 > h4, #col3 > h4 {
+            width: 100%;
+            text-align: center;
+        }
+        #news1, #news3 {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+        }
+        .col1 {
+            flex-basis: 20%;
+            border-right: 2px solid black;
+        }
+        .col2 {
+            flex-basis: 60%;
+            border-right: 2px solid black;
+        }
+        .col3 {
+            flex-basis: 20%;
+        }
+        @media (max-width: 100vw) and (max-width: 100vh) {
+            .container {
+                display: block;
+            }
+            .col1, .col3 {
+                display: none;
+            }
+            .col2 {
+                width: 100%;
+                border: none;
+            }
+        }
+        .news-item {
+            margin-bottom: 1em;
+        }
+        .news-card {
+            background: #fff;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            padding: 1em;
+            margin-bottom: 1em;
+            transition: box-shadow 0.2s;
+        }
+        .news-card:hover {
+            box-shadow: 0 4px 16px rgba(0,0,0,0.16);
+        }
+    </style>
+        <style>
+            /* Slice and button styles */
+            #sliceBtn {
+                position: fixed;
+                left: 16px;
+                bottom: 16px;
+                z-index: 1001;
+                background: #222;
+                color: #fff;
+                border: none;
+                border-radius: 50%;
+                width: 56px;
+                height: 56px;
+                display: none;
+                align-items: center;
+                justify-content: center;
+                font-size: 2rem;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+                cursor: pointer;
+            }
+            #sliceDrawer {
+                position: fixed;
+                left: 0;
+                bottom: 0;
+                width: 100vw;
+                height: 70vh;
+                background: #fff;
+                box-shadow: 0 -2px 16px rgba(0,0,0,0.18);
+                z-index: 1000;
+                transform: translateY(100%);
+                transition: transform 0.3s;
+                border-top-left-radius: 16px;
+                border-top-right-radius: 16px;
+                overflow-y: auto;
+                padding: 1.5em 1em 1em 1em;
+            }
+            #sliceDrawer.open {
+                transform: translateY(0);
+            }
+            #sliceDrawer h1 {
+                font-size: 1.3em;
+                margin-bottom: 1em;
+            }
+            #sliceDrawerClose {
+                position: absolute;
+                left: 50%;
+                top: 16px;
+                transform: translateX(-50%);
+                background: none;
+                border: none;
+                font-size: 2.5em;
+                color: #333;
+                cursor: pointer;
+            }
+            @media (max-width: 100vw) and (max-width: 100vh) {
+                #sliceBtn {
+                    display: flex;
+                }
+                    #sliceBtnRight {
+                        display: flex;
+                    }
+            }
+        </style>
+    <script>
+            // Responsive slice logic for right button
+            function openSliceDrawerRight() {
+                closeSliceDrawer(); // Ensure left drawer is closed
+                const drawer = document.getElementById('sliceDrawerRight');
+                if (drawer) {
+                    // Copy col1 content
+                    const col1 = document.getElementById('col1');
+                    if (col1) {
+                        drawer.querySelector('.slice-content-right').innerHTML = col1.innerHTML;
+                    }
+                    drawer.classList.add('open');
+                }
+            }
+            function closeSliceDrawerRight() {
+                const drawer = document.getElementById('sliceDrawerRight');
+                if (drawer) {
+                    drawer.classList.remove('open');
+                }
+            }
+            // Responsive slice logic
+            function isPortrait() {
+                return window.innerWidth < window.innerHeight;
+            }
+            function updateSliceBtnVisibility() {
+                const btn = document.getElementById('sliceBtn');
+                if (btn) {
+                    btn.style.display = isPortrait() ? 'flex' : 'none';
+                }
+            }
+            window.addEventListener('resize', updateSliceBtnVisibility);
+            document.addEventListener('DOMContentLoaded', updateSliceBtnVisibility);
+
+            function openSliceDrawer() {
+                const drawer = document.getElementById('sliceDrawer');
+                if (drawer) {
+                    // Copy col3 content
+                    const col3 = document.getElementById('col3');
+                    if (col3) {
+                        drawer.querySelector('.slice-content').innerHTML = col3.innerHTML;
+                    }
+                    drawer.classList.add('open');
+                }
+            }
+            function closeSliceDrawer() {
+                closeSliceDrawerRight(); // Ensure right drawer is closed
+                const drawer = document.getElementById('sliceDrawer');
+                if (drawer) {
+                    drawer.classList.remove('open');
+                }
+            }
+        function updateClock() {
+            const now = new Date();
+            const clock = document.getElementById('clock');
+            if (clock) {
+                clock.textContent = now.toLocaleTimeString();
+            }
+                // Update date
+                const dateSpan = document.getElementById('date');
+                if (dateSpan) {
+                    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+                    dateSpan.textContent = now.toLocaleDateString('en-US', options);
+                }
+        }
+        // ===================== CSV Sheet Loader (PapaParse) =====================
+        // Load the CSV spreadsheet and render into left (news1), center (news2), and archive drawer
+        // The spreadsheet in the user's request is: https://docs.google.com/spreadsheets/d/1_ert1D__zQoI0tzhxtJcaxqcoDBe4yLDzNzkYOfKtYY
+        // Column mapping (0-based): A=0 summit date (ignored), B=1 Title, C=2 Description, D=3 Provider, E=4 Publish Date
+        // Center (news2): rows with the latest date in column E
+        // Left (news1): all other rows
+        // Archive (slice drawer content): all rows sorted newest to oldest
+
+        // PapaParse for CSV parsing
+        const papaScript = document.createElement('script');
+        papaScript.src = 'https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js';
+        papaScript.onload = function() {
+            // After PapaParse loaded, start loader
+            startSheetLoader();
+        };
+        document.head.appendChild(papaScript);
+
+        function createCardFromRow(dataRow) {
+            // Use columns: B=Title, C=Description, D=Provider, E=Publish Date
+            const titleText = (dataRow[1] || '').toString().trim() || 'Untitled';
+            const desc = (dataRow[2] || '').toString().trim();
+            const provider = (dataRow[3] || '').toString().trim();
+            const publish = (dataRow[4] || '').toString().trim();
+
+            const container = document.createElement('div');
+            container.className = 'news-card p-3 w-100 mb-2';
+
+            const title = document.createElement('div');
+            title.className = 'fw-bold mb-1';
+            title.textContent = titleText;
+            container.appendChild(title);
+
+            if (desc) {
+                const d = document.createElement('div');
+                d.className = 'text-muted small';
+                d.textContent = desc;
+                container.appendChild(d);
+            }
+
+            const metaRow = document.createElement('div');
+            metaRow.className = 'd-flex justify-content-between align-items-center mt-2 small text-muted';
+            const pLeft = document.createElement('span');
+            pLeft.textContent = provider || '';
+            const pRight = document.createElement('span');
+            pRight.textContent = publish || '';
+            metaRow.appendChild(pLeft);
+            metaRow.appendChild(pRight);
+            container.appendChild(metaRow);
+
+            return container;
+        }
+
+        function parseDate(value) {
+            if (!value) return null;
+            const s = value.toString().trim();
+            if (!s) return null;
+            // Try native parse first (ISO, etc.)
+            const tryIso = new Date(s);
+            if (!isNaN(tryIso) && tryIso.getFullYear() > 1900) {
+                // Convert to UTC midnight for consistent comparison
+                return new Date(Date.UTC(tryIso.getFullYear(), tryIso.getMonth(), tryIso.getDate()));
+            }
+
+            // Extract numeric parts (handles separators / - . space)
+            const parts = s.split(/[^0-9]+/).filter(Boolean).map(p => p.trim());
+            if (parts.length === 3) {
+                let [p1, p2, p3] = parts;
+                // Turn 2-digit year into 2000+year
+                if (p3.length === 2) {
+                    p3 = String(2000 + parseInt(p3, 10));
+                }
+                // Heuristic: if first part > 12 -> day-first (dd/mm/yyyy)
+                // Else, prefer day-first (dd/mm/yyyy) because many sheets use day-first
+                let day, month, year;
+                if (parseInt(p1, 10) > 12) {
+                    day = parseInt(p1, 10);
+                    month = parseInt(p2, 10);
+                    year = parseInt(p3, 10);
+                } else {
+                    // default to dd/mm/yyyy (common outside US)
+                    day = parseInt(p1, 10);
+                    month = parseInt(p2, 10);
+                    year = parseInt(p3, 10);
+                }
+                if (!isNaN(year) && !isNaN(month) && !isNaN(day)) {
+                    // Validity checks
+                    if (month >= 1 && month <= 12 && day >= 1 && day <= 31 && year >= 1000 && year <= 9999) {
+                        return new Date(Date.UTC(year, month - 1, day));
+                    }
+                }
+            }
+            return null;
+        }
+
+        async function startSheetLoader() {
+            updateClock();
+            setInterval(updateClock, 1000);
+
+            // Add small message placeholders so users see things are loading
+            const news1 = document.getElementById('news1');
+            const news2 = document.getElementById('news2');
+            const news3 = document.getElementById('news3');
+            if (news1) news1.innerHTML = '<div class="text-muted">กำลังโหลด...</div>';
+            if (news2) news2.innerHTML = '<div class="text-muted">กำลังโหลด...</div>';
+            if (news3) news3.innerHTML = '<div class="text-muted">--</div>';
+
+            try {
+                const SHEET_ID = '1_ert1D__zQoI0tzhxtJcaxqcoDBe4yLDzNzkYOfKtYY';
+                const csvExport = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv`;
+                const resp = await fetch(csvExport);
+                if (!resp.ok) throw new Error('Failed to fetch CSV: ' + resp.statusText);
+                const text = await resp.text();
+                const rows = await new Promise((resolve, reject) => {
+                    Papa.parse(text, { skipEmptyLines: true, complete: r => resolve(r.data), error: e => reject(e) });
+                });
+
+                // First row may be header. We'll accept it if there are strings.
+                const header = rows[0];
+                const data = rows.slice(1).filter(r => r && r.length >= 1);
+
+                // Map publish dates; find latest
+                const parsed = data.map(r => ({row: r, date: parseDate((r[4] || '').toString().trim())}));
+                const validDates = parsed.map(p => p.date).filter(Boolean);
+                let latestDate = null;
+                if (validDates.length) {
+                    latestDate = new Date(Math.max.apply(null, validDates.map(d => d.getTime())));
+                }
+
+                // All rows sorted by publish date desc; null dates go to end
+                parsed.sort((a,b) => {
+                    if (!a.date && !b.date) return 0;
+                    if (!a.date) return 1;
+                    if (!b.date) return -1;
+                    return b.date - a.date;
+                });
+
+                // Render archive (slice drawer) with all rows
+                const sliceContent = document.querySelector('#sliceDrawer .slice-content');
+                if (sliceContent) sliceContent.innerHTML = '';
+                for (const p of parsed) {
+                    const card = createCardFromRow(p.row);
+                    if (sliceContent) sliceContent.appendChild(card.cloneNode(true));
+                }
+
+                // Render center: only rows whose publish date matches latest date (by date part)
+                if (news2) {
+                    news2.innerHTML = '';
+                    const latestIsoDate = latestDate ? latestDate.toISOString().slice(0,10) : null;
+                    console.debug('Latest publish date (ISO):', latestIsoDate);
+                    const latestItems = parsed.filter(p => {
+                        if (!p.date || !latestDate) return false;
+                        // Compare date only (not time)
+                        const a = p.date.toISOString().slice(0,10);
+                        return a === latestIsoDate;
+                    });
+                    if (latestItems.length === 0) {
+                        news2.innerHTML = '<div class="text-muted">ยังไม่มีข่าวใหม่</div>';
+                    } else {
+                        for (const p of latestItems) {
+                            const card = createCardFromRow(p.row);
+                            news2.appendChild(card);
+                        }
+                    }
+                }
+
+                // Render left column: other rows (sorted newest to oldest) except those already in latest
+                if (news1) {
+                    news1.innerHTML = '';
+                    const latestIsoDate = latestDate ? latestDate.toISOString().slice(0,10) : null;
+                    console.debug('Total rows:', parsed.length, 'latestIso:', latestIsoDate);
+                    const others = parsed.filter(p => {
+                        if (!p.date) return true; // keep unknown dates
+                        const a = p.date.toISOString().slice(0,10);
+                        return a !== latestIsoDate;
+                    });
+                    if (others.length === 0) {
+                        news1.innerHTML = '<div class="text-muted">รอประวัติข่าว</div>';
+                    } else {
+                        for (const p of others) {
+                            const card = createCardFromRow(p.row);
+                            news1.appendChild(card);
+                        }
+                    }
+                }
+
+                // Right column kept empty for now
+                if (news3) news3.innerHTML = '<div class="text-muted">--</div>';
+
+            } catch (err) {
+                console.error(err);
+                if (news1) news1.innerHTML = `<div class="text-danger">Error: ${err.message}</div>`;
+                if (news2) news2.innerHTML = `<div class="text-danger">Error: ${err.message}</div>`;
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // startSheetLoader() will be called after PapaParse script loads
+        });
+
+        function loadNews(jsonFile, containerId) {
+            fetch(jsonFile)
+                .then(response => {
+                    if (!response.ok) throw new Error('Network response was not ok');
+                    return response.json();
+                })
+                .then(data => {
+                    const container = document.getElementById(containerId);
+                    if (container && data.News) {
+                        container.innerHTML = data.News.map(news =>
+                            `<div class="news-card">
+                                <strong>${news.Title}</strong><br>
+                                <span>${news.Desc}</span>
+                            </div>`
+                        ).join('');
+                    }
+                })
+                .catch(error => {
+                    const container = document.getElementById(containerId);
+                    if (container) {
+                        container.innerHTML = `<span style='color:red;'>Failed to load news.</span>`;
+                    }
+                });
+        }
+    </script>
+</head>
+<body>
+        <!-- Navigation/Header Bar -->
+    <nav class="navbar navbar-expand-lg sticky-top" style="background-color: #111; color: #fff;">
+            <div class="container-fluid justify-content-between align-items-center">
+                <span class="navbar-text text-white fw-bold" style="font-size: 1.1rem;">
+                    <span id="date">September 17, 2025</span>
+                </span>
+                <span class="navbar-brand mx-auto text-white fw-bold" style="font-size: 1.5rem;">Sidefalls News</span>
+                <span class="navbar-text text-white fw-bold" style="font-size: 1.1rem;">
+                    <span id="clock"></span>
+                </span>
+            </div>
+        </nav>
+        <!-- Slice Button (bottom left) -->
+        <button id="sliceBtn" title="Show special news" onclick="openSliceDrawer()">🔊</button>
+            <!-- Slice Button (bottom right) -->
+            <button id="sliceBtnRight" title="Show archive" onclick="openSliceDrawerRight()">📁</button>
+            <!-- Slice Drawer Right -->
+            <div id="sliceDrawerRight">
+                <button id="sliceDrawerRightClose" onclick="closeSliceDrawerRight()" title="Close">×</button>
+                <div class="slice-content-right"></div>
+            </div>
+        <!-- Slice Drawer -->
+        <div id="sliceDrawer">
+            <button id="sliceDrawerClose" onclick="closeSliceDrawer()" title="Close">×</button>
+            <div class="slice-content"></div>
+        </div>
+        <div class="container">
+            <div class="col col1" id="col1">
+                <h1>Archive</h1>
+                <div id="news1"></div>
+            </div>
+            <div class="col col2" id="col2">
+                <h1>ข่าวฉบับล่าสุด</h1>
+                <div id="news2"></div>
+            </div>
+            <div class="col col3" id="col3">
+                <h1>ข่าวพิเศษ</h1>  
+                <div id="news3"></div>
+            </div>
+        </div>
+</body>
+</html>
