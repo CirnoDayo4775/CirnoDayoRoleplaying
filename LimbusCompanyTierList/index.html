@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Tierlist — Card Grid</title>
+  <style>
+    :root{
+      --bg:#0f1724; --card:#0b1220; --muted:#9aa4b2; --accent:#7dd3fc;
+      --glass: rgba(255,255,255,0.04);
+      --tier-gap: 18px;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; padding:28px; background:linear-gradient(180deg,#071028 0%, #071424 100%); color:#e6eef6;
+      -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+    }
+
+    header{display:flex;align-items:center;gap:16px;margin-bottom:20px}
+    header h1{margin:0;font-size:1.2rem}
+    .controls{margin-left:auto;display:flex;gap:8px;align-items:center}
+    input[type="search"]{padding:8px 10px;border-radius:8px;border:1px solid rgba(255,255,255,0.06);background:transparent;color:inherit}
+
+    .tier{
+      margin-bottom:28px;
+      padding:12px; border-radius:12px; background:linear-gradient(180deg, rgba(255,255,255,0.01), transparent);
+      border:1px solid rgba(255,255,255,0.03);
+    }
+    .tier-head{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+    .tier-name{font-weight:700;background:var(--glass);padding:6px 10px;border-radius:8px;color:var(--accent);font-size:0.95rem}
+    .tier-sub{color:var(--muted);font-size:0.85rem}
+
+    .cards{display:flex;gap:12px;flex-wrap:wrap}
+    /* card */
+    .card{
+      width:170px; min-width:170px; background:var(--card); border-radius:12px; overflow:hidden; position:relative; box-shadow: 0 6px 20px rgba(2,6,23,0.6);
+      border:1px solid rgba(255,255,255,0.03); transition:transform .18s ease, box-shadow .18s ease;
+    }
+    .card:hover{transform:translateY(-6px); box-shadow:0 18px 40px rgba(2,6,23,0.6)}
+
+    .card .media{height:120px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.1));display:flex;align-items:center;justify-content:center}
+    .card img{max-width:100%;max-height:100%;object-fit:contain;display:block}
+
+    .card-body{padding:10px}
+    .name{font-weight:600; font-size:0.96rem; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+    .meta{display:flex;align-items:center;justify-content:space-between;margin-top:8px}
+    .rarity{font-size:0.78rem;padding:4px 8px;border-radius:999px;background:rgba(255,255,255,0.03);color:var(--muted)}
+
+    /* Hover details overlay */
+    .details{
+      position:absolute; inset:0; background:linear-gradient(180deg, rgba(2,6,23,0.85), rgba(2,6,23,0.95));
+      padding:12px; display:flex;flex-direction:column; justify-content:center; gap:8px; opacity:0; transform:translateY(6px); transition:opacity .16s ease, transform .16s ease;
+    }
+    .card:hover .details{opacity:1; transform:translateY(0)}
+    .details h3{margin:0;font-size:0.95rem}
+    .detail-text{font-size:0.84rem;color:var(--muted);line-height:1.25;max-height:5.2rem;overflow:auto}
+
+    /* empty tier message */
+    .empty{color:var(--muted);padding:12px;border-radius:8px;background:rgba(255,255,255,0.02)}
+
+    /* responsive */
+    @media (max-width:760px){
+      .cards{overflow:auto;padding-bottom:6px}
+      .card{flex:0 0 auto}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Tierlist</h1>
+    <div class="controls">
+      <label style="color:var(--muted);font-size:0.85rem">Search</label>
+      <input id="search" type="search" placeholder="Filter identity or rarity..." />
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- tiers will be injected here -->
+  </main>
+
+  <script>
+    // Order of tiers (rows)
+    const TIERS = [
+      'Ayin', 'EX', 'S', 'A', 'B', 'C', 'D', 'Why?', "I don't have/Didn't played enough"
+    ];
+
+    // Expected JSON structure (list.json):
+    // [
+    //   {
+    //     "identity": "Yi Sang - Original",
+    //     // `image` SHOULD be a URL (absolute or relative). Example: "https://.../char.png" or "images/char.png"
+    //     // Storing full links (https://...) in JSON is supported and recommended for GitHub Pages deployments.
+    //     "image": "https://example.com/char.png",
+    //     "rarity": "5★",
+    //     "tier": "S",
+    //     "pro": "Good at X",
+    //     "con": "Weak vs Y"
+    //   },
+    //   ...
+    // ]
+
+    const main = document.getElementById('main');
+    const searchInput = document.getElementById('search');
+
+    function mkEl(tag, props = {}, children = []){
+      const el = document.createElement(tag);
+      for(const k in props){ if(k === 'class') el.className = props[k]; else if(k==='html') el.innerHTML = props[k]; else el.setAttribute(k, props[k]); }
+      (Array.isArray(children)?children:[children]).forEach(c => { if(!c) return; if(typeof c === 'string') el.appendChild(document.createTextNode(c)); else el.appendChild(c); });
+      return el;
+    }
+
+    function createCard(item){
+      // Identity is like a version name (e.g. "Yi Sang - Original"). We match known character bases to pick a background color.
+      const identity = item.identity || item.name || 'Unnamed';
+
+      // Color map (user-specified). Keys are lowercase base-name snippets to match against identity.
+      const COLOR_MAP = {
+        'yi sang': '#9CA3AF',        // gray-ish
+        'faust': '#FFFFFF',          // white
+        'don': '#FBBF24',            // yellow
+        'ryoshu': '#8B0000',         // bloodred
+        'meursault': '#3B82F6',      // blue
+        'hong lu': '#60A5FA',        // light blue
+        'healthcliff': '#7C3AED',    // purple
+        'ishmael': '#F97316',        // orange
+        'rodion': '#EF4444',         // red-ish
+        'sinclair': '#10B981',       // green
+        'outis': '#5C4033',          // dark brown-ish
+        'gregor': '#A1745A'          // light brown-ish
+      };
+
+      // helper: choose contrast color (black/white) based on luminance
+      function getContrastColor(hex){
+        if(!hex) return '#fff';
+        const h = hex.replace('#','');
+        const r = parseInt(h.substring(0,2),16);
+        const g = parseInt(h.substring(2,4),16);
+        const b = parseInt(h.substring(4,6),16);
+        // relative luminance
+        const luminance = (0.299*r + 0.587*g + 0.114*b)/255;
+        return luminance > 0.6 ? '#000' : '#fff';
+      }
+
+      // find matching base key
+      const idLower = identity.toLowerCase();
+      let matched = null;
+      for(const k of Object.keys(COLOR_MAP)){
+        if(idLower.includes(k)) { matched = k; break; }
+      }
+      const bg = matched ? COLOR_MAP[matched] : null;
+
+      // Create image element with support for external links and graceful fallback.
+      const imgEl = document.createElement('img');
+      imgEl.alt = identity;
+      imgEl.loading = 'lazy';
+      imgEl.decoding = 'async';
+      imgEl.src = item.image || '';
+      imgEl.setAttribute('referrerpolicy','no-referrer');
+      imgEl.onerror = function(){ this.onerror = null; this.src = 'data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22120%22 height=%22120%22><rect fill=%22%230b1220%22 width=%22100%25%22 height=%22100%25%22/><text x=%2250%25%22 y=%2250%25%22 fill=%22%239aa4b2%22 font-size=%2212%22 font-family=%22Arial%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22>No Image</text></svg>'; };
+      const media = mkEl('div',{class:'media'}, [imgEl]);
+
+      const name = mkEl('div',{class:'name'}, [identity]);
+      const rarity = mkEl('div',{class:'rarity'}, [item.rarity || '—']);
+      const meta = mkEl('div',{class:'meta'}, [name, rarity]);
+
+      const body = mkEl('div',{class:'card-body'}, [meta]);
+
+      const details = mkEl('div',{class:'details'}, [
+        mkEl('h3',{}, [identity]),
+        mkEl('div',{class:'detail-text', html:`<strong>Pro:</strong> ${escapeHtml(item.pro || 'None')}<br><strong>Con:</strong> ${escapeHtml(item.con || 'None')}`})
+      ]);
+
+      const card = mkEl('article',{class:'card', role:'article'} , [media, body, details]);
+
+      // Apply background color for the card if we matched a character base
+      if(bg){
+        card.style.background = bg;
+        // adjust text color for contrast
+        const contrast = getContrastColor(bg);
+        card.style.color = contrast;
+        // make rarity pill slightly transparent variant
+        const rarityEl = card.querySelector('.rarity');
+        if(rarityEl) rarityEl.style.background = 'rgba(255,255,255,0.06)';
+      }
+
+      return card;
+    }
+
+    function escapeHtml(s){
+      return String(s)
+        .replace(/&/g,'&amp;')
+        .replace(/</g,'&lt;')
+        .replace(/>/g,'&gt;')
+        .replace(/\"/g,'&quot;')
+        .replace(/\'/g,'&#39;');
+    }
+
+    function renderTiers(items){
+      main.innerHTML = '';
+      const byTier = {};
+      items.forEach(it => {
+        const t = (it.tier || "I don't have/Didn't played enough");
+        if(!byTier[t]) byTier[t] = [];
+        byTier[t].push(it);
+      });
+
+      TIERS.forEach(tierName => {
+        const tierWrap = mkEl('section',{class:'tier', 'data-tier':tierName});
+        const head = mkEl('div',{class:'tier-head'}, [
+          mkEl('div',{class:'tier-name'}, [tierName]),
+          mkEl('div',{class:'tier-sub'}, [ (byTier[tierName] && byTier[tierName].length) ? `${byTier[tierName].length} characters` : 'No characters' ])
+        ]);
+        const cards = mkEl('div',{class:'cards'});
+        if(byTier[tierName] && byTier[tierName].length){
+          byTier[tierName].forEach(it => cards.appendChild(createCard(it)));
+        } else {
+          cards.appendChild(mkEl('div',{class:'empty'}, ['No characters in this tier yet.']))
+        }
+        tierWrap.appendChild(head);
+        tierWrap.appendChild(cards);
+        main.appendChild(tierWrap);
+      });
+    }
+
+    function load(){
+      fetch('list.json')
+        .then(r => {
+          if(!r.ok) throw new Error('Could not load list.json — make sure it is in the same directory and served over HTTP (GitHub Pages).');
+          return r.json();
+        })
+        .then(data => {
+          // normalize array
+          if(!Array.isArray(data)) throw new Error('list.json must be an array of character objects');
+          // optional: sort by rarity or name
+          renderTiers(data);
+
+          // wire search
+          searchInput.addEventListener('input', e => {
+            const q = (e.target.value || '').toLowerCase().trim();
+            if(!q){ renderTiers(data); return }
+            const filtered = data.filter(it => (
+              (it.identity||'').toLowerCase().includes(q) || (it.rarity||'').toLowerCase().includes(q) || (it.tier||'').toLowerCase().includes(q)
+            ));
+            renderTiers(filtered);
+          });
+        })
+        .catch(err => {
+          main.innerHTML = '<div style="color:#f6a6a6;padding:16px;border-radius:8px;background:rgba(255,0,0,0.03);">'+escapeHtml(err.message)+'</div>';
+          console.error(err);
+        });
+    }
+
+    // Start
+    load();
+
+    // Helpful: GitHub Pages will serve list.json correctly. If you're testing locally, run a tiny local server
+    // (e.g. `python -m http.server 8000`) and open http://localhost:8000/
+  </script>
+</body>
+</html>
